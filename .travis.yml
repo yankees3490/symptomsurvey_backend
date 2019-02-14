@@ -23,8 +23,8 @@ jobs:
         - docker logs -f ci_web_1
         - docker wait ci_web_1
       after-script: docker-compose -p ci down
-      - install: docker-compose build
-      - script: docker-compose up -d --build
+    - install: docker-compose build
+    - script: docker-compose up -d --build
       name: "Dev Docker Build"  
 
 script:
