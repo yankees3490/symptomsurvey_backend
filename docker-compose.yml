@@ -8,7 +8,7 @@ services:
       context: ./
       dockerfile: ./WEB/Dockerfile
     ports:
-      #restricts to localhost, remove the ip prefix to allow public access
+      #does not restrict to localhost, add 127.0.0.1 to the beginning to disallow public access
       - 5000:5000
     depends_on:
       - mongo
