@@ -84,7 +84,7 @@ class Collection:
 
 class UsersCollection(Collection):
   def __init__(self):
-    with open('../MANAGE/seeds/users.json') as seed:
+    with open('./MANAGE/seeds/users.json') as seed:
       base_data = json.load(seed)
     
     data = []
@@ -99,7 +99,7 @@ class UsersCollection(Collection):
 
 class RolesCollection(Collection):
   def __init__(self):
-    with open('../MANAGE/seeds/roles.json') as seed:
+    with open('./MANAGE/seeds/roles.json') as seed:
       data = json.load(seed)
     
     Collection.__init__(self, data)
