@@ -11,7 +11,22 @@ before_install:
     - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
     - chmod +x docker-compose
     - sudo mv docker-compose /usr/local/bin
-    - docker-compose build
+
+jobs:  
+  include:
+    - stage: "Tests"                # naming the Tests stage
+      name: "Unit Tests"            # names the first Tests stage job
+      script: ./unit-tests
+      install: 
+        - docker-compose -f ./docker-compose.test.yml -p ci build
+        - docker-compose -f ./docker-compose.test.yml -p ci up -d
+      script:
+        - docker logs -f ci_web_1
+        - docker wait ci_web_1
+      after-script: docker-compose -p ci down
+      name: "Dev Docker Build"  
+      install: docker-compose build
+      script: docker-compose up -d --build
 
 script:
     - docker-compose up -d --build
